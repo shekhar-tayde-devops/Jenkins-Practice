@@ -1,30 +1,30 @@
 pipeline {
     agent {
         docker {
-            image 'jenkins-node-docker-agent'
+            image 'shekhartaydde/node-shekhar-docker-agent:v1'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     stages {
-        stage('Verify') {
+
+        stage('Check Node Version') {
             steps {
                 sh 'node -v'
+            }
+        }
+
+        stage('Check NPM Version') {
+            steps {
                 sh 'npm -v'
+            }
+        }
+
+        stage('Check Docker Version') {
+            steps {
                 sh 'docker --version'
             }
         }
 
-        stage('Build Node App') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t myapp .'
-            }
-        }
     }
 }
