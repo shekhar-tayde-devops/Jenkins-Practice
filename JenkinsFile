@@ -1,0 +1,30 @@
+pipeline {
+    agent {
+        docker {
+            image 'jenkins-node-docker-agent'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
+    stages {
+        stage('Verify') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+                sh 'docker --version'
+            }
+        }
+
+        stage('Build Node App') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t myapp .'
+            }
+        }
+    }
+}
