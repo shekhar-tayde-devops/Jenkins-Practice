@@ -8,6 +8,7 @@ pipeline {
 
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+        SONAR_USER_HOME = "${WORKSPACE}/.sonar"
     }
 
     stages {
