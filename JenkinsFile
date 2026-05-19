@@ -25,24 +25,20 @@ pipeline {
         }
 
         stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://65.0.75.224:9000"
-            }
-            steps {
 
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+    steps {
 
-                sh '''
-                    npx sonar-scanner
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
 
-                    sonar-scanner \
-                      -Dsonar.projectKey=test-app \
-                      -Dsonar.sources=. \
-                      -Dsonar.host.url=$SONAR_URL \
-                      -Dsonar.login=$SONAR_AUTH_TOKEN
-                '''
-                }
-            }
+            sh """
+                npx sonar-scanner \
+                -Dsonar.projectKey=test-app \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=http://65.0.75.224:9000 \
+                -Dsonar.login=${SONAR_AUTH_TOKEN}
+            """
         }
+    }
+}
     }
 }
