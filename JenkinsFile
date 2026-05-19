@@ -32,7 +32,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
 
                 sh '''
-                    npm install -g sonar-scanner
+                    npx sonar-scanner
 
                     sonar-scanner \
                       -Dsonar.projectKey=test-app \
