@@ -23,19 +23,19 @@ pipeline {
             }
         }
 
-        // stage('Static Code Analysis') {
-        //     steps {
-        //         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
-        //             sh '''
-        //                 npm install -g sonar-scanner
-        //                 sonar-scanner \
-        //                     -Dsonar.projectKey=test-app \
-        //                     -Dsonar.sources=. \
-        //                     -Dsonar.host.url=http://65.0.75.224:9000 \
-        //                     -Dsonar.login=$SONAR_TOKEN
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Static Code Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
+                    sh '''
+                        npm install -g sonar-scanner
+                        sonar-scanner \
+                            -Dsonar.projectKey=test-app \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=http://65.0.75.224:9000 \
+                            -Dsonar.login=$SONAR_TOKEN
+                    '''
+                }
+            }
+        }
     }
 }
