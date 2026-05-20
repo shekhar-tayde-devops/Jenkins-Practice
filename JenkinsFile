@@ -59,29 +59,30 @@ pipeline {
         }
         
         stage('Update Deployment File') {
-            environment {
-                GIT_REPO_NAME = "Jenkins-Practice"
-                GIT_USER_NAME = "shekhar-tayde-devops"
-            }
 
-            steps {
-                checkout scm
-                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                
-                    sh """
-                        git config user.email "shekhartayde@gmail.com"
-                        git config user.name "Shekhar Tayde"
+    environment {
+        GIT_REPO_NAME = "Jenkins-Practice"
+        GIT_USER_NAME = "shekhar-tayde-devops"
+    }
 
-                        sed -i "s|replaceImageTag|${BUILD_NUMBER}|g" test-app-manifest/deployment.yaml
+    steps {
 
-                        git add test-app-manifest/deployment.yaml
+        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
 
-                        git commit -m "Update node app image to version ${BUILD_NUMBER}"
+            sh '''
+                git config --global user.email "shekhartayde@gmail.com"
+                git config --global user.name "Shekhar Tayde"
 
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git HEAD:main
-                    """
-                }
-            }
-        }       
+                sed -i "s|replaceImageTag|'${BUILD_NUMBER}'|g" test-app-manifest/deployment.yaml
+
+                git add test-app-manifest/deployment.yaml
+
+                git commit -m "Update node app image to version '${BUILD_NUMBER}'" || echo "No changes to commit"
+
+                git push https://$GITHUB_TOKEN@github.com/shekhar-tayde-devops/Jenkins-Practice.git HEAD:main
+            '''
+        }
+    }
+}       
     }
 }
