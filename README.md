@@ -16,3 +16,6 @@ Build and run with Docker:
 docker build -t test-app .
 docker run -p 5000:5000 test-app
 ```
+
+
+test-app-manifest for k8s files
