@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: shekhartaydde/test-app
+        image: shekhartaydde/test-app:replaceImageTag
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
