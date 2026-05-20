@@ -74,7 +74,7 @@ pipeline {
                 git config --global user.email "shekhartayde@gmail.com"
                 git config --global user.name "Shekhar Tayde"
 
-                sed -i "s|replaceImageTag|'${BUILD_NUMBER}'|g" test-app-manifest/deployment.yaml
+                sed -i "s|image: shekhartaydde/test-app:.*|image: shekhartaydde/test-app:${BUILD_NUMBER}|g" test-app-manifest/deployment.yaml
 
                 git add test-app-manifest/deployment.yaml
 
