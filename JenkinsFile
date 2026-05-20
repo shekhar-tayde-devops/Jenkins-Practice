@@ -41,6 +41,7 @@ pipeline {
 
         stage('Build and Push Docker Image') {
             environment {
+                HOME = "${WORKSPACE}"
                 DOCKER_IMAGE = "shekhartaydde/test-app:${BUILD_NUMBER}"
                 REGISTRY_CREDENTIALS = credentials('docker-cred')
             }
