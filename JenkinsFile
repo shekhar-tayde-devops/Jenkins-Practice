@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'shekhartaydde/node-shekhar-docker-agent:v1'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
+            args '-u root -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
