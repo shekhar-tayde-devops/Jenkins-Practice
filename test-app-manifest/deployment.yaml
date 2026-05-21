@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: test-app
-        image: shekhartaydde/test-app:55
+        image: shekhartaydde/test-app:56
         ports:
         - containerPort: 5000
